@@ -65,8 +65,6 @@ namespace NuciAPI.Client
                     authorisationInfo,
                     endpoint));
 
-            Console.WriteLine(httpResponse.IsSuccessStatusCode);
-
             if (!httpResponse.IsSuccessStatusCode)
             {
                 return await DeserialiseErrorResponse(httpResponse);
@@ -91,6 +89,7 @@ namespace NuciAPI.Client
                     "application/json"
                 )
             };
+
             if (authorisationInfo is not null)
             {
                 if (!string.IsNullOrEmpty(authorisationInfo.BearerToken))
@@ -100,7 +99,6 @@ namespace NuciAPI.Client
                             "Bearer",
                             authorisationInfo.BearerToken);
                 }
-                Console.WriteLine(httpRequest.Headers.Authorization.Parameter);
 
                 if (!string.IsNullOrEmpty(authorisationInfo.HmacSharedSecretKey))
                 {
