@@ -104,9 +104,10 @@ namespace NuciAPI.Client
                 {
                     httpRequest.Headers.Add(
                         "X-HMAC",
-                        HmacEncoder.GenerateToken(
+                        Uri.EscapeDataString(HmacEncoder.GenerateToken(
                             request,
-                            authorisationInfo.HmacSharedSecretKey));
+                            authorisationInfo.HmacSharedSecretKey)
+                        ));
                 }
             }
 
