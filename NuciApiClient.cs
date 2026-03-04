@@ -95,10 +95,21 @@ namespace NuciAPI.Client
             return httpRequest;
         }
 
-        static void AttachRequestHeaders(
+        void AttachRequestHeaders(
             HttpRequestMessage httpRequest,
             NuciApiRequestAuthorisationInfo authorisationInfo)
         {
+            string clientId = authorisationInfo?.ClientId;
+
+            if (string.IsNullOrEmpty(clientId))
+            {
+                clientId = "UnknownClient";
+            }
+
+            httpRequest.Headers.Add(
+                "X-Client-ID",
+                clientId);
+
             httpRequest.Headers.Add(
                 "X-Request-ID",
                 Guid.NewGuid().ToString().ToUpper());
