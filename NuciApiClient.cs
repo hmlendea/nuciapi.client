@@ -14,35 +14,12 @@ namespace NuciAPI.Client
     /// A client that can send requests to an API.
     /// </summary>
     /// <param name="baseUrl">The base URL of the API. This is used to construct the full URL for each request.</param>
-    /// <param name="clientId">The client ID to be used for identification within the API.</param>
-    public class NuciApiClient(string baseUrl, string clientId) : INuciApiClient
+    public class NuciApiClient(string baseUrl) : INuciApiClient
     {
-        /// <summary>
-        /// A client that can send requests to an API.
-        /// </summary>
-        /// <param name="baseUrl">The base URL of the API. This is used to construct the full URL for each request.</param>
-        public NuciApiClient(string baseUrl) : this(baseUrl, null) { }
-
         /// <summary>
         /// The base URL of the API. This is used to construct the full URL for each request.
         /// </summary>
         public string BaseUrl { get; } = baseUrl;
-
-        /// <summary>
-        /// The client ID to be used for identification within the API. If not provided, it defaults to "UnknownClient".
-        /// </summary>
-        public string ClientId
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(clientId))
-                {
-                    return "UnknownClient";
-                }
-
-                return clientId;
-            }
-        }
 
         HttpClient HttpClient { get; } = new HttpClient();
 
@@ -122,9 +99,16 @@ namespace NuciAPI.Client
             HttpRequestMessage httpRequest,
             NuciApiRequestAuthorisationInfo authorisationInfo)
         {
+            string clientId = authorisationInfo?.ClientId;
+
+            if (string.IsNullOrEmpty(clientId))
+            {
+                clientId = "UnknownClient";
+            }
+
             httpRequest.Headers.Add(
                 "X-Client-ID",
-                ClientId);
+                clientId);
 
             httpRequest.Headers.Add(
                 "X-Request-ID",
