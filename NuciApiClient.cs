@@ -99,6 +99,14 @@ namespace NuciAPI.Client
             HttpRequestMessage httpRequest,
             NuciApiRequestAuthorisationInfo authorisationInfo)
         {
+            httpRequest.Headers.Add(
+                "X-Request-ID",
+                Guid.NewGuid().ToString().ToUpper());
+
+            httpRequest.Headers.Add(
+                "X-Timestamp",
+                Uri.EscapeDataString(DateTimeOffset.Now.ToString("o")));
+
             if (authorisationInfo is not null)
             {
                 if (!string.IsNullOrEmpty(authorisationInfo.BearerToken))
@@ -119,10 +127,6 @@ namespace NuciAPI.Client
                         ));
                 }
             }
-
-            httpRequest.Headers.Add(
-                "X-Timestamp",
-                Uri.EscapeDataString(DateTimeOffset.Now.ToString("o")));
         }
 
         static async Task<NuciApiErrorResponse> DeserialiseErrorResponse(
