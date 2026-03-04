@@ -90,6 +90,15 @@ namespace NuciAPI.Client
                 )
             };
 
+            AttachRequestHeaders(httpRequest, authorisationInfo);
+
+            return httpRequest;
+        }
+
+        static void AttachRequestHeaders(
+            HttpRequestMessage httpRequest,
+            NuciApiRequestAuthorisationInfo authorisationInfo)
+        {
             if (authorisationInfo is not null)
             {
                 if (!string.IsNullOrEmpty(authorisationInfo.BearerToken))
@@ -105,13 +114,15 @@ namespace NuciAPI.Client
                     httpRequest.Headers.Add(
                         "X-HMAC",
                         Uri.EscapeDataString(HmacEncoder.GenerateToken(
-                            request,
+                            httpRequest,
                             authorisationInfo.HmacSharedSecretKey)
                         ));
                 }
             }
 
-            return httpRequest;
+            httpRequest.Headers.Add(
+                "X-Timestamp",
+                Uri.EscapeDataString(DateTimeOffset.Now.ToString("o")));
         }
 
         static async Task<NuciApiErrorResponse> DeserialiseErrorResponse(
