@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.WebUtilities;
 using NuciAPI.Requests;
 using NuciAPI.Responses;
 using NuciExtensions;
@@ -81,14 +83,27 @@ namespace NuciAPI.Client
             NuciApiRequestAuthorisationInfo authorisationInfo,
             string endpoint) where TRequest : NuciApiRequest
         {
-            HttpRequestMessage httpRequest = new(method, GetRequestUrl(endpoint))
+            HttpRequestMessage httpRequest = new(method, GetRequestUrl(endpoint));
+
+            if (method.Equals(HttpMethod.Post) ||
+                method.Equals(HttpMethod.Put) ||
+                method.Equals(HttpMethod.Patch))
             {
-                Content = new StringContent(
+                httpRequest.Content = new StringContent(
                     request.ToJson(),
                     Encoding.UTF8,
-                    "application/json"
-                )
-            };
+                    "application/json");
+            }
+            else
+            {
+                Dictionary<string, string> queryParams =
+                    QueryStringBuilder.Build(request);
+
+                httpRequest.RequestUri =
+                    new Uri(QueryHelpers.AddQueryString(
+                        httpRequest.RequestUri.ToString(),
+                        queryParams));
+            }
 
             AttachRequestHeaders(httpRequest, authorisationInfo);
 
