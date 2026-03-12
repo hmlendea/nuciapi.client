@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <RootNamespace>NuciAPI.Client</RootNamespace>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Description>NuciAPI client library</Description>
     <Authors>Horațiu Mlendea</Authors>
     <Copyright>Copyright 2026 © Horațiu Mlendea</Copyright>
@@ -14,6 +14,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.9" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.4" />
     <PackageReference Include="NuciAPI" Version="3.0.0" />
     <PackageReference Include="NuciExtensions" Version="5.3.0" />
     <PackageReference Include="NuciSecurity.HMAC" Version="4.1.2" />
