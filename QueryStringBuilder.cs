@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 namespace NuciAPI.Client
 {
@@ -57,27 +58,40 @@ namespace NuciAPI.Client
 
         static string GetQueryName(PropertyInfo property)
         {
-            FromQueryAttribute attribute =
-                property.GetCustomAttribute<FromQueryAttribute>();
+            object fromQuery =
+                property.GetCustomAttributes()
+                    .FirstOrDefault(a => a.GetType().Name.Equals("FromQueryAttribute"));
 
-            if (attribute is not null &&
-                !string.IsNullOrWhiteSpace(attribute.Name))
+            if (fromQuery is not null)
             {
-                return attribute.Name;
+                PropertyInfo nameProperty =
+                    fromQuery.GetType().GetProperty("Name");
+
+                string name = nameProperty?.GetValue(fromQuery) as string;
+
+                if (!string.IsNullOrWhiteSpace(name))
+                {
+                    return name;
+                }
+            }
+
+            JsonPropertyNameAttribute jsonName = property
+                .GetCustomAttribute<JsonPropertyNameAttribute>();
+
+            if (jsonName is not null)
+            {
+                return jsonName.Name;
             }
 
             return JsonNamingPolicy.CamelCase.ConvertName(property.Name);
         }
 
-        static bool IsSimple(Type type)
-        {
-            return
-                type.IsPrimitive ||
-                type == typeof(string) ||
-                type == typeof(Guid) ||
-                type == typeof(DateTime) ||
-                type == typeof(DateTimeOffset) ||
-                type == typeof(decimal);
-        }
+        static bool IsSimple(Type type) =>
+            type.IsPrimitive ||
+            type == typeof(string) ||
+            type == typeof(Guid) ||
+            type == typeof(DateTime) ||
+            type == typeof(DateTimeOffset) ||
+            type == typeof(decimal);
     }
 }
