@@ -105,13 +105,17 @@ namespace NuciAPI.Client
                         queryParams));
             }
 
-            AttachRequestHeaders(httpRequest, authorisationInfo);
+            AttachRequestHeaders(
+                httpRequest,
+                request,
+                authorisationInfo);
 
             return httpRequest;
         }
 
         void AttachRequestHeaders(
             HttpRequestMessage httpRequest,
+            NuciApiRequest request,
             NuciApiRequestAuthorisationInfo authorisationInfo)
         {
             string clientId = authorisationInfo?.ClientId;
@@ -148,7 +152,7 @@ namespace NuciAPI.Client
                     httpRequest.Headers.Add(
                         "X-HMAC",
                         Uri.EscapeDataString(HmacEncoder.GenerateToken(
-                            httpRequest,
+                            request,
                             authorisationInfo.HmacSharedSecretKey)
                         ));
                 }
