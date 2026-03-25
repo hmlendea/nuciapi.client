@@ -165,7 +165,8 @@ namespace NuciAPI.Client
                 return new NuciApiErrorResponse(
                     $"Request failed with status code" +
                     $" {(int)httpResponse.StatusCode}" +
-                    $" ({httpResponse.StatusCode})");
+                    $" ({httpResponse.StatusCode})",
+                    NuciApiResponseCodes.ErrorCodes.Default);
             }
 
             return responseString.FromJson<NuciApiErrorResponse>();
