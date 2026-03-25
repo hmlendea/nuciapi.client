@@ -118,7 +118,7 @@ namespace NuciAPI.Client
 
             if (string.IsNullOrEmpty(clientId))
             {
-                clientId = "UnknownClient";
+                clientId = Environment.MachineName;
             }
 
             httpRequest.Headers.Add(
