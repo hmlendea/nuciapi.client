@@ -118,16 +118,16 @@ namespace NuciAPI.Client
 
             if (string.IsNullOrEmpty(clientId))
             {
-                clientId = "UnknownClient";
+                clientId = Environment.MachineName;
             }
 
             httpRequest.Headers.Add(
                 "X-Client-ID",
-                clientId);
+                Uri.EscapeDataString(clientId));
 
             httpRequest.Headers.Add(
                 "X-Request-ID",
-                Guid.NewGuid().ToString().ToUpper());
+                Uri.EscapeDataString(Guid.NewGuid().ToString().ToUpper()));
 
             httpRequest.Headers.Add(
                 "X-Timestamp",
