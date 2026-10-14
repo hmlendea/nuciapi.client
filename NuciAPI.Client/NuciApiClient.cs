@@ -25,9 +25,25 @@ namespace NuciAPI.Client
 
         public HttpClient HttpClient { get; private set; } = new HttpClient();
 
+        bool isDisposed;
+
         public NuciApiClient(string baseUrl, HttpClient httpClient) : this(baseUrl)
         {
             HttpClient = httpClient;
+        }
+
+        /// <summary>
+        /// Disposes the HttpClient.
+        /// </summary>
+        public void Dispose()
+        {
+            if (isDisposed)
+            {
+                return;
+            }
+
+            HttpClient.Dispose();
+            isDisposed = true;
         }
 
         /// <summary>

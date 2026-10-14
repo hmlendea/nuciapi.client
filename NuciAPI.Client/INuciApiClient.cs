@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NuciAPI.Requests;
@@ -8,7 +9,7 @@ namespace NuciAPI.Client
     /// <summary>
     /// Interface for a client that can send requests to an API.
     /// </summary>
-    public interface INuciApiClient
+    public interface INuciApiClient : IDisposable
     {
         /// <summary>
         /// The base URL of the API. This is used to construct the full URL for each request.
