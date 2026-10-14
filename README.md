@@ -100,6 +100,10 @@ NuciApiResponse response = await client.SendRequestAsync<PingRequest, PingRespon
 - `X-Request-ID` is generated per request (GUID)
 - `X-Timestamp` uses ISO 8601 format (`DateTimeOffset.Now.ToString("o")`)
 
+## Privacy
+
+For the detailed description of how the application handles privacy and personal data, see [PRIVACY.md](./PRIVACY.md).
+
 ## Request Serialization Rules
 
 - For `POST`, `PUT`, `PATCH`: request object is serialized to JSON body
