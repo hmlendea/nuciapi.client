@@ -100,6 +100,10 @@ NuciApiResponse response = await client.SendRequestAsync<PingRequest, PingRespon
 - `X-Request-ID` is generated per request (GUID)
 - `X-Timestamp` uses ISO 8601 format (`DateTimeOffset.Now.ToString("o")`)
 
+## 🤝 Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on reporting issues, suggesting enhancements, and submitting code changes.
+
 ## 🔒 Security
 
 See [SECURITY.md](SECURITY.md) for the security policy, supported versions, vulnerability reporting, and disclosure process.
