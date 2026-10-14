@@ -23,7 +23,12 @@ namespace NuciAPI.Client
         /// </summary>
         public string BaseUrl { get; } = baseUrl;
 
-        HttpClient HttpClient { get; } = new HttpClient();
+        public HttpClient HttpClient { get; private set; } = new HttpClient();
+
+        public NuciApiClient(string baseUrl, HttpClient httpClient) : this(baseUrl)
+        {
+            HttpClient = httpClient;
+        }
 
         /// <summary>
         /// Sends a request to the API and returns the response. The request is sent as JSON in the body of the HTTP request.

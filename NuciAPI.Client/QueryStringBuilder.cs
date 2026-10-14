@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace NuciAPI.Client
 {
-    static class QueryStringBuilder
+    public static class QueryStringBuilder
     {
         public static Dictionary<string, string> Build(object obj)
         {
