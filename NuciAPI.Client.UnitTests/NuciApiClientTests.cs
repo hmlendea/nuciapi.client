@@ -287,6 +287,32 @@ namespace NuciAPI.Client.UnitTests
                     "/test"));
         }
 
+        [Test]
+        public void GivenClient_WhenDispose_ThenDoesNotThrow()
+        {
+            Assert.DoesNotThrow(() => client.Dispose());
+        }
+
+        [Test]
+        public void GivenClient_WhenDisposeCalledTwice_ThenDoesNotThrow()
+        {
+            client.Dispose();
+            Assert.DoesNotThrow(() => client.Dispose());
+        }
+
+        [Test]
+        public void GivenClientWithExternalHttpClient_WhenDispose_ThenDisposesHttpClient()
+        {
+            Mock<HttpMessageHandler> handlerMock = new();
+            HttpClient externalHttpClient = new(handlerMock.Object);
+            NuciApiClient externalClient = new(BaseUrl, externalHttpClient);
+
+            externalClient.Dispose();
+
+            Assert.Throws<ObjectDisposedException>(() =>
+                externalHttpClient.SendAsync(new HttpRequestMessage()));
+        }
+
         private sealed class TestRequest : NuciApiRequest
         {
             public string Value { get; set; }
