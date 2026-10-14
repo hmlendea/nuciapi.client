@@ -32,6 +32,12 @@ namespace NuciAPI.Client.UnitTests
             client = new NuciApiClient(BaseUrl, httpClient);
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            httpClient?.Dispose();
+        }
+
         [Test]
         public void GivenBaseUrl_WhenConstructing_ThenBaseUrlIsSet()
             => Assert.That(client.BaseUrl, Is.EqualTo(BaseUrl));

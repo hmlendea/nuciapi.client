@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
-using NuciAPI.Client;
+using System.Text.Json.Serialization;
+using NuciAPI.Client.UnitTests.Helpers;
 
 namespace NuciAPI.Client.UnitTests
 {
@@ -138,10 +139,116 @@ namespace NuciAPI.Client.UnitTests
             Assert.That(result["isDeleted"], Is.EqualTo("False"));
         }
 
-        private sealed class TestClassWithJsonProperty
+        [Test]
+        public void GivenObjectWithSpecialCharacters_WhenBuild_ThenEscapesValues()
         {
-            [System.Text.Json.Serialization.JsonPropertyName("custom_name")]
-            public string CustomName { get; set; }
+            object obj = new { Name = "test value", Description = "a&b=c" };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["name"], Is.EqualTo("test value"));
+            Assert.That(result["description"], Is.EqualTo("a&b=c"));
+        }
+
+        [Test]
+        public void GivenDeeplyNestedObject_WhenBuild_ThenFlattensCorrectly()
+        {
+            object obj = new
+            {
+                User = new
+                {
+                    Profile = new { FirstName = "John", LastName = "Doe" },
+                    Settings = new { Theme = "dark", Notifications = true }
+                }
+            };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result, Has.Count.EqualTo(4));
+            Assert.That(result["user.profile.firstName"], Is.EqualTo("John"));
+            Assert.That(result["user.profile.lastName"], Is.EqualTo("Doe"));
+            Assert.That(result["user.settings.theme"], Is.EqualTo("dark"));
+            Assert.That(result["user.settings.notifications"], Is.EqualTo("True"));
+        }
+
+        [Test]
+        public void GivenObjectWithLongProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Id = 123456789012345L };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["id"], Is.EqualTo("123456789012345"));
+        }
+
+        [Test]
+        public void GivenObjectWithDoubleProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Price = 19.99d };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["price"], Is.EqualTo("19.99"));
+        }
+
+        [Test]
+        public void GivenObjectWithFloatProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Price = 19.99f };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["price"], Is.EqualTo("19.99"));
+        }
+
+        [Test]
+        public void GivenObjectWithByteProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Value = (byte)255 };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["value"], Is.EqualTo("255"));
+        }
+
+        [Test]
+        public void GivenObjectWithShortProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Value = (short)32767 };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["value"], Is.EqualTo("32767"));
+        }
+
+        [Test]
+        public void GivenObjectWithUIntProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Value = 4294967295u };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["value"], Is.EqualTo("4294967295"));
+        }
+
+        [Test]
+        public void GivenObjectWithULongProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Value = 18446744073709551615ul };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["value"], Is.EqualTo("18446744073709551615"));
+        }
+
+        [Test]
+        public void GivenObjectWithCharProperty_WhenBuild_ThenConvertsToString()
+        {
+            object obj = new { Value = 'A' };
+
+            Dictionary<string, string> result = QueryStringBuilder.Build(obj);
+
+            Assert.That(result["value"], Is.EqualTo("A"));
         }
     }
 }
