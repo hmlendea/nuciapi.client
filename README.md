@@ -1,4 +1,8 @@
-[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding) [![Latest Release](https://img.shields.io/github/v/release/hmlendea/nuciapi.client)](https://github.com/hmlendea/nuciapi.client/releases/latest) [![Build Status](https://github.com/hmlendea/nuciapi.client/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nuciapi.client/actions/workflows/dotnet.yml) [![NuGet](https://img.shields.io/nuget/v/NuciAPI.Client)](https://nuget.org/packages/NuciAPI.Client) [![License](https://img.shields.io/github/license/hmlendea/nuciapi.client)](https://github.com/hmlendea/nuciapi.client/blob/master/LICENSE)
+[![Donate](https://img.shields.io/badge/-%E2%99%A5%20Donate-%23ff69b4)](https://hmlendea.go.ro/funding)
+[![Latest Release](https://img.shields.io/github/v/release/hmlendea/nuciapi.client)](https://github.com/hmlendea/nuciapi.client/releases/latest)
+[![Build Status](https://github.com/hmlendea/nuciapi.client/actions/workflows/dotnet.yml/badge.svg)](https://github.com/hmlendea/nuciapi.client/actions/workflows/dotnet.yml)
+[![NuGet](https://img.shields.io/nuget/v/NuciAPI.Client)](https://nuget.org/packages/NuciAPI.Client)
+[![License](https://img.shields.io/github/license/hmlendea/nuciapi.client)](https://github.com/hmlendea/nuciapi.client/blob/master/LICENSE)
 
 # NuciAPI.Client
 
@@ -14,6 +18,7 @@ A lightweight .NET client library for calling NuciAPI-compatible REST endpoints.
 - [Versioning](#-versioning)
 - [Data Formats and Protocols](#-data-formats-and-protocols)
 - [Contributing](#-contributing)
+- [Code of Conduct](#-code-of-conduct)
 - [Security](#-security)
 - [Project Engagement](#-project-engagement)
 - [License](#-license)
@@ -206,6 +211,10 @@ When doing so, please:
 - Raise a new [issue](https://github.com/hmlendea/nuciapi.client/issues) for problems or suggestions
 
 See the [contributing guidelines](./CONTRIBUTING.md) for details on how to report issues, suggest enhancements, and submit changes.
+
+## 📜 Code of Conduct
+
+See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct expected in all project spaces.
 
 ## 🔒 Security
 
