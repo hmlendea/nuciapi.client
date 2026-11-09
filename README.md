@@ -151,6 +151,7 @@ For the detailed description of how the application handles privacy and personal
 | Workflow | Purpose | What it does |
 |----------|---------|--------------|
 | [ dotnet.yml ](https://github.com/hmlendea/nuciapi.client/blob/master/.github/workflows/dotnet.yml) | Continuous integration | Restores dependencies, builds the solution, and runs tests on every push and pull request to `master` |
+| [ security.yml ](https://github.com/hmlendea/nuciapi.client/blob/master/.github/workflows/security.yml) | Security scanning | Checks for vulnerable packages and runs CodeQL analysis on push, pull request, and weekly schedule |
 
 ## 🗂️ Project Structure
 
@@ -221,6 +222,14 @@ See the [Code of Conduct](./CODE_OF_CONDUCT.md) for the standards of conduct exp
 NuciAPI.Client follows a coordinated disclosure policy for security vulnerabilities.
 
 For information on reporting security vulnerabilities, see [SECURITY.md](./SECURITY.md).
+
+### Automated Security Scanning
+
+This repository runs automated security scans on every push, pull request, and weekly schedule. The scan includes:
+- **Vulnerable package detection** Checks all direct and transitive NuGet dependencies for known vulnerabilities
+- **CodeQL static analysis** Performs semantic code analysis for security issues in C# code
+
+Results are published to the [Security](https://github.com/hmlendea/nuciapi.client/security) tab and the [Actions](https://github.com/hmlendea/nuciapi.client/actions/workflows/security.yml) workflow page.
 
 ## 💝 Project Engagement
 
