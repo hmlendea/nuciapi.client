@@ -39,11 +39,16 @@ namespace NuciAPI.Client
                 }
 
                 string name = GetQueryName(property);
+                string key;
 
-                string key =
-                    prefix is null
-                    ? name
-                    : $"{prefix}.{name}";
+                if (prefix is null)
+                {
+                    key = name;
+                }
+                else
+                {
+                    key = $"{prefix}.{name}";
+                }
 
                 if (IsSimple(value.GetType()))
                 {
