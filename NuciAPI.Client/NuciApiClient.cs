@@ -16,7 +16,7 @@ namespace NuciAPI.Client
     /// A client that can send requests to an API.
     /// </summary>
     /// <param name="baseUrl">The base URL of the API. This is used to construct the full URL for each request.</param>
-    public class NuciApiClient(string baseUrl) : INuciApiClient
+    public sealed class NuciApiClient(string baseUrl) : INuciApiClient
     {
         /// <summary>
         /// The base URL of the API. This is used to construct the full URL for each request.

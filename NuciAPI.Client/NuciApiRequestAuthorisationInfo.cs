@@ -1,6 +1,6 @@
 namespace NuciAPI.Client
 {
-    public class NuciApiRequestAuthorisationInfo
+    public sealed class NuciApiRequestAuthorisationInfo
     {
         public string ClientId { get; set; }
 
