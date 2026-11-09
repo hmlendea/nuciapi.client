@@ -100,6 +100,14 @@ This project follows the [Code of Conduct](./CODE_OF_CONDUCT.md). By participati
 
 For security issues, please refer to the [Security Policy](SECURITY.md).
 
+### Automated Security Scanning
+
+This repository runs automated security scans on every push, pull request, and weekly schedule. The scan includes:
+- **Vulnerable package detection** Checks all direct and transitive NuGet dependencies for known vulnerabilities
+- **CodeQL static analysis** Performs semantic code analysis for security issues in C# code
+
+Results are published to the [Security](https://github.com/hmlendea/nuciapi.client/security) tab and the [Actions](https://github.com/hmlendea/nuciapi.client/actions/workflows/security.yml) workflow page.
+
 ## 📄 License
 
 This project is licensed under the [GPL-3.0-or-later](LICENSE) license. By contributing, you agree that your contributions will be licensed under the same terms.
